@@ -1,0 +1,43 @@
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+local gui = Instance.new("ScreenGui")
+gui.Name = "LaggerGUI"
+gui.Parent = player:WaitForChild("PlayerGui")
+
+local button = Instance.new("TextButton")
+button.Size = UDim2.new(0, 180, 0, 60)
+button.Position = UDim2.new(0.5, -90, 0.8, 0)
+button.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+button.TextColor3 = Color3.new(1, 1, 1)
+button.TextScaled = true
+button.Text = "LAGGER : OFF"
+button.Parent = gui
+
+local active = false
+
+button.MouseButton1Click:Connect(function()
+    active = not active
+
+    if active then
+        button.Text = "LAGGER : ON"
+        button.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+    else
+        button.Text = "LAGGER : OFF"
+        button.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+    end
+end)
+
+while true do
+    task.wait(0.5)
+
+    if active and player.Character then
+        local humanoid = player.Character:FindFirstChild("Humanoid")
+
+        if humanoid then
+            humanoid.WalkSpeed = 0
+            task.wait(0.5)
+            humanoid.WalkSpeed = 16
+        end
+    end
+end
